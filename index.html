@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050810">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Solo Leveling">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Saud Solo Leveling</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050810;--bg2:#080d1a;--card:#0c1428;--card2:#0f1a35;--border:#1a2a50;
+    --blue:#3a7bd5;--blue-glow:#3a7bd580;--cyan:#00d4ff;--cyan-glow:#00d4ff40;
+    --purple:#7c3aed;--purple-glow:#7c3aed40;--gold:#f5c842;--gold-glow:#f5c84240;
+    --green:#00ff88;--red:#ff4444;--text:#e8eeff;--text-dim:#6a7a9a;
+    --E:#6b7280;--D:#22c55e;--C:#3b82f6;--B:#a855f7;--A:#f59e0b;--S:#ef4444;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  canvas#particles{position:fixed;top:0;left:0;z-index:0;pointer-events:none;}
+  .container{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:24px 16px;}
+  header{text-align:center;padding:36px 0 28px;}
+  header::after{content:'';display:block;width:200px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);margin:18px auto 0;}
+  .system-badge{display:inline-block;font-size:11px;letter-spacing:4px;color:var(--cyan);background:var(--cyan-glow);border:1px solid var(--cyan);padding:4px 16px;border-radius:2px;margin-bottom:14px;animation:pb 2s ease-in-out infinite;}
+  @keyframes pb{0%,100%{opacity:1;}50%{opacity:0.5;}}
+  h1{font-size:clamp(26px,5vw,46px);font-weight:900;background:linear-gradient(135deg,#fff 0%,var(--cyan) 50%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;}
+  .subtitle{color:var(--text-dim);font-size:13px;margin-top:6px;letter-spacing:1px;}
+  .tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:4px;margin-bottom:24px;}
+  .tab-btn{flex:1;padding:9px;border:none;border-radius:6px;background:transparent;color:var(--text-dim);font-family:'Tajawal',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;}
+  .tab-btn.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 0 20px var(--blue-glow);}
+  .tab-content{display:none;}.tab-content.active{display:block;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--purple));opacity:0;transition:opacity .3s;}
+  .card:hover::before{opacity:1;}
+  .card:hover{border-color:var(--blue-glow);box-shadow:0 0 25px rgba(58,123,213,.1);}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){.grid-2{grid-template-columns:1fr;}}
+  .mission-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .mission-title{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700;}
+  .mission-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;}
+  .level-badge{padding:3px 10px;border-radius:4px;font-size:11px;font-weight:800;letter-spacing:1px;}
+  .lvl-E{background:#6b728020;color:var(--E);border:1px solid var(--E);}
+  .lvl-D{background:#22c55e20;color:var(--D);border:1px solid var(--D);}
+  .lvl-C{background:#3b82f620;color:var(--C);border:1px solid var(--C);}
+  .lvl-B{background:#a855f720;color:var(--B);border:1px solid var(--B);}
+  .lvl-A{background:#f59e0b20;color:var(--A);border:1px solid var(--A);}
+  .lvl-S{background:#ef444420;color:var(--S);border:1px solid var(--S);box-shadow:0 0 10px #ef444440;}
+  .xp-section{margin-bottom:12px;}
+  .xp-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+  .xp-label{font-size:11px;color:var(--text-dim);}
+  .xp-value{font-size:11px;font-weight:700;color:var(--cyan);}
+  .xp-bar-bg{width:100%;height:7px;background:#ffffff10;border-radius:4px;overflow:hidden;}
+  .xp-bar-fill{height:100%;border-radius:4px;transition:width .8s cubic-bezier(.34,1.56,.64,1);}
+  .complete-btn{width:100%;padding:9px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-dim);font-family:'Tajawal',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+  .complete-btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 18px var(--cyan-glow);}
+  .complete-btn:active{transform:scale(.98);}
+  .complete-btn.rest-day{border-color:var(--purple);color:var(--purple);}
+  .stats-row{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;}
+  .stat-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text-dim);}
+  .stat-item span{color:var(--text);font-weight:700;}
+  .sec-title{font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
+  .current-book{background:#3b82f610;border:1px solid #3b82f635;border-radius:9px;padding:12px;margin:8px 0;}
+  .book-name{font-size:14px;font-weight:700;margin-bottom:3px;}
+  .book-genre-badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:10px;font-weight:600;margin-bottom:8px;}
+  .book-pages-info{display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-bottom:5px;}
+  .add-pages-row{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap;}
+  .pages-input{width:75px;padding:6px 9px;background:#ffffff08;border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:12px;text-align:center;outline:none;}
+  .pages-input:focus{border-color:var(--cyan);}
+  .add-pages-btn{padding:6px 12px;border:1px solid var(--green);border-radius:7px;background:transparent;color:var(--green);font-family:'Tajawal',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+  .add-pages-btn:hover{background:#00ff8818;}
+  .set-btn{padding:6px 11px;border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--text-dim);font-family:'Tajawal',sans-serif;font-size:11px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+  .set-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+  .set-btn.primary{border-color:var(--cyan);color:var(--cyan);width:100%;padding:9px;font-size:13px;margin:7px 0;}
+  .books-list{margin-top:7px;display:flex;flex-direction:column;gap:5px;max-height:140px;overflow-y:auto;}
+  .book-item{display:flex;align-items:center;gap:7px;padding:6px 9px;background:#ffffff05;border-radius:7px;font-size:11px;}
+  .book-item-name{flex:1;font-weight:600;}
+  .nutri-panel{border-radius:9px;padding:12px;margin:8px 0;}
+  .nutri-panel.workout{background:#22c55e08;border:1px solid #22c55e30;}
+  .nutri-panel.rest{background:#a855f708;border:1px solid #a855f730;}
+  .nutri-panel.unknown{background:#ffffff05;border:1px solid var(--border);}
+  .nutri-title{font-size:11px;font-weight:700;margin-bottom:10px;letter-spacing:.5px;}
+  .nutri-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .nutri-item{background:#ffffff06;border-radius:7px;padding:8px 10px;text-align:center;}
+  .nutri-val{font-size:16px;font-weight:900;}
+  .nutri-lbl{font-size:10px;color:var(--text-dim);margin-top:2px;}
+  .nutri-water{background:#06b6d410;border:1px solid #06b6d430;border-radius:7px;padding:8px 10px;text-align:center;margin-top:8px;}
+  .nutri-water .nutri-val{color:#06b6d4;}
+  .dash-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;}
+  .dash-stat-big{font-size:38px;font-weight:900;line-height:1;margin:6px 0 3px;}
+  .dash-label{font-size:11px;color:var(--text-dim);letter-spacing:1px;}
+  .dash-sub{font-size:12px;color:var(--text-dim);margin-top:4px;}
+  .dash-sub span{color:var(--gold);font-weight:700;}
+  .ring-wrap{position:relative;display:inline-block;flex-shrink:0;}
+  .ring-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+  .dash-books-list{margin-top:10px;display:flex;flex-direction:column;gap:5px;max-height:180px;overflow-y:auto;}
+  .dash-book-item{display:flex;align-items:center;gap:7px;padding:6px 10px;background:#ffffff05;border-radius:7px;font-size:11px;}
+  .dash-book-name{flex:1;font-weight:600;}
+  .dash-book-date{font-size:10px;color:var(--text-dim);}
+  .level-ladder{display:flex;flex-direction:column;gap:7px;}
+  .level-row{display:flex;align-items:center;gap:10px;padding:7px 11px;border-radius:8px;background:#ffffff05;border:1px solid transparent;transition:all .3s;}
+  .level-row.current{background:#3a7bd510;border-color:var(--blue);}
+  .level-row.completed{opacity:.5;}
+  .level-name{font-size:12px;font-weight:800;min-width:52px;}
+  .level-req{font-size:10px;color:var(--text-dim);flex:1;}
+  .notif{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid var(--cyan);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:600;color:var(--cyan);box-shadow:0 0 35px var(--cyan-glow);z-index:1000;transition:transform .5s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
+  .notif.show{transform:translateX(-50%) translateY(0);}
+  .notif.level-up{border-color:var(--gold);color:var(--gold);box-shadow:0 0 35px var(--gold-glow);font-size:15px;}
+  .glow-E{color:var(--E);}.glow-D{color:var(--D);}.glow-C{color:var(--C);}.glow-B{color:var(--B);}
+  .glow-A{color:var(--A);text-shadow:0 0 10px var(--A);}
+  .glow-S{color:var(--S);text-shadow:0 0 20px var(--S);animation:sp 1.5s ease-in-out infinite;}
+  @keyframes sp{0%,100%{text-shadow:0 0 20px var(--S);}50%{text-shadow:0 0 40px var(--S),0 0 60px #ef444460;}}
+  .modal-overlay{display:none;position:fixed;inset:0;background:#000000cc;z-index:500;align-items:center;justify-content:center;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:26px;width:90%;max-width:380px;position:relative;}
+  .modal h3{font-size:17px;font-weight:800;margin-bottom:16px;color:var(--cyan);}
+  .modal-close{position:absolute;top:13px;left:13px;background:transparent;border:none;color:var(--text-dim);font-size:19px;cursor:pointer;}
+  .modal-close:hover{color:var(--red);}
+  .sl-input{width:100%;padding:8px 11px;background:#ffffff08;border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:13px;outline:none;margin-bottom:9px;}
+  .sl-input:focus{border-color:var(--cyan);}
+  .sl-input::placeholder{color:var(--text-dim);}
+  .sl-select{width:100%;padding:8px 11px;background:#0c1428;border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:13px;outline:none;margin-bottom:9px;cursor:pointer;}
+  .modal-actions{display:flex;gap:9px;margin-top:4px;}
+  .btn-primary{flex:1;padding:10px;border:none;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+  .btn-primary:hover{opacity:.85;}
+  .btn-cancel{flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-dim);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div id="notif" class="notif"></div>
+<div class="modal-overlay" id="bookModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeBookModal()">✕</button>
+    <h3>📖 أضف كتابك الحالي</h3>
+    <input class="sl-input" id="bookTitleInput" placeholder="اسم الكتاب"/>
+    <select class="sl-select" id="bookGenreInput">
+      <option value="ديني">ديني</option>
+      <option value="أدب">أدب</option>
+      <option value="تاريخ">تاريخ</option>
+      <option value="علمي">علمي</option>
+      <option value="تطوير">تطوير ذات</option>
+      <option value="رواية">رواية</option>
+      <option value="أخرى">أخرى</option>
+    </select>
+    <input class="sl-input" id="bookPagesInput" type="number" placeholder="عدد الصفحات الكلي" min="1"/>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="confirmSetBook()">حفظ الكتاب</button>
+      <button class="btn-cancel" onclick="closeBookModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <header>
+    <div class="system-badge">◆ SYSTEM ACTIVATED ◆</div>
+    <h1>نظام تطوير الذات</h1>
+    <p class="subtitle">Solo Leveling — أصبح أقوى من أمسك</p>
+  </header>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('missions',this)">⚔️ المهام</button>
+    <button class="tab-btn" onclick="switchTab('dashboard',this)">📊 الداشبورد</button>
+    <button class="tab-btn" onclick="switchTab('levels',this)">🏆 المستويات</button>
+  </div>
+  <div id="tab-missions" class="tab-content active">
+    <div class="sec-title">المهام اليومية</div>
+    <div class="grid-2" id="missions-grid"></div>
+  </div>
+  <div id="tab-dashboard" class="tab-content">
+    <div class="sec-title">نظرة عامة</div>
+    <div class="grid-2" id="dash-grid"></div>
+    <div class="sec-title" style="margin-top:20px">📚 الكتب المكتملة</div>
+    <div class="card" id="dash-books-card"></div>
+  </div>
+  <div id="tab-levels" class="tab-content">
+    <div class="sec-title">سلم المستويات</div>
+    <div id="levels-grid" class="grid-2"></div>
+  </div>
+</div>
+<script>
+const MISSIONS=[
+  {id:'reading',name:'القراءة',icon:'📖',iconBg:'#3b82f615',desc:'قراءة 30 صفحة يومياً',color:'#3b82f6',hasRestDay:false,hasBookTracker:true},
+  {id:'gym',name:'النادي',icon:'⚡',iconBg:'#22c55e15',desc:'الذهاب للنادي',color:'#22c55e',hasRestDay:true},
+  {id:'consulting',name:'الاستشارات',icon:'💼',iconBg:'#a855f715',desc:'تجهيز للاستشارات',color:'#a855f7',hasRestDay:false},
+  {id:'calligraphy',name:'الخط العربي',icon:'✒️',iconBg:'#f59e0b15',desc:'10 دقايق يومياً',color:'#f59e0b',hasRestDay:false,hasMinutes:true,minutesGoal:700,minutesPerSession:10},
+  {id:'health',name:'ماء وأكل صحي',icon:'💧',iconBg:'#06b6d415',desc:'الماء والأكل الصحي يومياً',color:'#06b6d4',hasRestDay:false,hasNutri:true},
+];
+const LEVELS=['E','D','C','B','A','S'];
+const THR={E:0,D:100,C:200,B:300,A:400,S:600};
+const LVL_CLRS={E:'#6b7280',D:'#22c55e',C:'#3b82f6',B:'#a855f7',A:'#f59e0b',S:'#ef4444'};
+const GENRE_CLRS={ديني:'#22c55e',أدب:'#ec4899',تاريخ:'#f59e0b',علمي:'#3b82f6',تطوير:'#a855f7',رواية:'#06b6d4',أخرى:'#9ca3af'};
+function getLevel(p){if(p>=600)return'S';if(p>=400)return'A';if(p>=300)return'B';if(p>=200)return'C';if(p>=100)return'D';return'E';}
+function getLevelProgress(p){
+  const thr2=[0,100,200,300,400,600];const lvl=getLevel(p);const idx=LEVELS.indexOf(lvl);
+  const start=thr2[idx];const end=thr2[idx+1]??700;const needed=end-start;const cur=p-start;
+  return{level:lvl,pct:Math.min(100,Math.round(cur/needed*100)),current:cur,needed};
+}
+function loadState(){try{return JSON.parse(localStorage.getItem('sl_v4')||'{}');}catch{return{};}}
+function saveState(s){localStorage.setItem('sl_v4',JSON.stringify(s));}
+let state=loadState();
+function initState(){
+  MISSIONS.forEach(m=>{
+    if(!state[m.id])state[m.id]={points:0,streak:0,lastDate:null,minutes:0,currentBook:null,completedBooks:[]};
+    if(!state[m.id].completedBooks)state[m.id].completedBooks=[];
+    if(state[m.id].currentBook===undefined)state[m.id].currentBook=null;
+    if(!state[m.id].minutes)state[m.id].minutes=0;
+  });
+  saveState(state);
+}
+initState();
+function today(){return new Date().toISOString().split('T')[0];}
+function canComplete(id){return state[id].lastDate!==today();}
+function gymDayType(){const g=state.gym;if(g.lastDate!==today())return null;return g.isRestDay?'rest':'workout';}
+function showNotif(msg,isLevelUp=false){
+  const el=document.getElementById('notif');
+  el.textContent=msg;el.className='notif'+(isLevelUp?' level-up':'')+' show';
+  setTimeout(()=>{el.className='notif'+(isLevelUp?' level-up':'');},3000);
+}
+function complete(id){
+  if(!canComplete(id)){showNotif('✓ تم إنجاز هذه المهمة اليوم');return;}
+  const oldLvl=getLevel(state[id].points);
+  state[id].points+=1;
+  const newLvl=getLevel(state[id].points);
+  const yest=new Date(Date.now()-86400000).toISOString().split('T')[0];
+  if(state[id].lastDate===yest)state[id].streak+=1;
+  else if(state[id].lastDate!==today())state[id].streak=1;
+  state[id].lastDate=today();state[id].isRestDay=false;
+  const m=MISSIONS.find(x=>x.id===id);
+  if(m?.hasMinutes)state[id].minutes=Math.min(m.minutesGoal,(state[id].minutes||0)+m.minutesPerSession);
+  saveState(state);
+  if(newLvl!==oldLvl)showNotif(`⚡ LEVEL UP! مستوى ${oldLvl} ← مستوى ${newLvl}`,true);
+  else showNotif(`+1 نقطة في ${m.name} ✓`);
+  render();
+}
+function restDay(id){
+  if(!canComplete(id)){showNotif('✓ تم تسجيل هذا اليوم');return;}
+  const yest=new Date(Date.now()-86400000).toISOString().split('T')[0];
+  if(state[id].lastDate===yest)state[id].streak+=1;
+  else if(state[id].lastDate!==today())state[id].streak=1;
+  state[id].lastDate=today();state[id].isRestDay=true;
+  saveState(state);showNotif('😴 يوم راحة — استرح وعد أقوى');render();
+}
+let _bookCb=null;
+function openBookModal(cb){_bookCb=cb;document.getElementById('bookModal').classList.add('open');setTimeout(()=>document.getElementById('bookTitleInput').focus(),80);}
+function closeBookModal(){document.getElementById('bookModal').classList.remove('open');}
+function confirmSetBook(){
+  const title=document.getElementById('bookTitleInput').value.trim();
+  const genre=document.getElementById('bookGenreInput').value;
+  const pages=parseInt(document.getElementById('bookPagesInput').value)||0;
+  if(!title||!pages){showNotif('⚠️ اكتب اسم الكتاب وعدد صفحاته');return;}
+  closeBookModal();
+  if(_bookCb)_bookCb({title,genre,pages,pagesRead:0});
+  document.getElementById('bookTitleInput').value='';document.getElementById('bookPagesInput').value='';
+}
+function setCurrentBook(){
+  openBookModal(book=>{state.reading.currentBook=book;saveState(state);render();showNotif(`📖 بدأت: ${book.title}`);});
+}
+function addPages(){
+  const inp=document.getElementById('pagesReadInput');const add=parseInt(inp.value)||0;
+  if(!add||add<=0){showNotif('⚠️ أدخل عدد صفحات صحيح');return;}
+  const cb=state.reading.currentBook;if(!cb){showNotif('⚠️ ما في كتاب حالي');return;}
+  cb.pagesRead=Math.min(cb.pages,(cb.pagesRead||0)+add);inp.value='';
+  if(cb.pagesRead>=cb.pages){
+    state.reading.completedBooks.push({...cb,finishedDate:today()});
+    state.reading.currentBook=null;saveState(state);
+    showNotif(`🎉 أنهيت "${cb.title}"! كتاب مكتمل!`,true);
+  }else{saveState(state);showNotif(`+${add} صفحة ✓  (${cb.pagesRead}/${cb.pages})`);}
+  render();
+}
+function renderNutri(){
+  const dtype=gymDayType();
+  if(dtype===null){return`<div class="nutri-panel unknown"><div class="nutri-title" style="color:var(--text-dim)">⏳ سجّل النادي أو الراحة أولاً لعرض الاحتياج الغذائي</div></div>`;}
+  const isWorkout=dtype==='workout';const clr=isWorkout?'#22c55e':'#a855f7';
+  const label=isWorkout?'💪 يوم تمرين':'😴 يوم راحة';const carbs=isWorkout?350:250;const water=isWorkout?'3.5L':'2.5 - 3L';
+  return`<div class="nutri-panel ${isWorkout?'workout':'rest'}"><div class="nutri-title" style="color:${clr}">${label} — الاحتياج الغذائي اليوم</div><div class="nutri-grid"><div class="nutri-item"><div class="nutri-val" style="color:#ef4444">175g</div><div class="nutri-lbl">Protein</div></div><div class="nutri-item"><div class="nutri-val" style="color:#f59e0b">${carbs}g</div><div class="nutri-lbl">Carbs</div></div><div class="nutri-item"><div class="nutri-val" style="color:#a855f7">80g</div><div class="nutri-lbl">Fat</div></div><div class="nutri-water"><div class="nutri-val">${water}</div><div class="nutri-lbl">💧 Water</div></div></div></div>`;
+}
+function renderReadingExtra(s,m){
+  const cb=s.currentBook;let html='';
+  if(cb){
+    const pct=Math.round(((cb.pagesRead||0)/cb.pages)*100);const gc=GENRE_CLRS[cb.genre]||'#9ca3af';
+    html+=`<div class="current-book"><div class="book-name">${cb.title}</div><div><span class="book-genre-badge" style="background:${gc}20;color:${gc}">${cb.genre}</span></div><div class="book-pages-info"><span>${cb.pagesRead||0} / ${cb.pages} صفحة</span><span>${pct}%</span></div><div class="xp-bar-bg" style="margin-bottom:8px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}88)"></div></div><div class="add-pages-row"><input class="pages-input" id="pagesReadInput" type="number" placeholder="صفحات" min="1"/><button class="add-pages-btn" onclick="addPages()">+ أضف صفحات</button><button class="set-btn" onclick="setCurrentBook()">تغيير</button></div></div>`;
+  }else{html+=`<button class="set-btn primary" onclick="setCurrentBook()">📖 أضف كتابك الحالي</button>`;}
+  const done=s.completedBooks||[];
+  html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;margin-bottom:5px"><div style="font-size:11px;color:var(--text-dim)">📚 الكتب المكتملة: <strong style="color:var(--gold)">${done.length}</strong></div></div>`;
+  if(done.length>0){html+=`<div class="books-list">`;done.slice().reverse().forEach(b=>{const gc=GENRE_CLRS[b.genre]||'#9ca3af';html+=`<div class="book-item"><div class="book-item-name">${b.title}</div><span style="font-size:10px;padding:2px 8px;border-radius:9px;background:${gc}20;color:${gc}">${b.genre}</span><div style="font-size:10px;color:var(--text-dim)">${b.pages}ص</div></div>`;});html+=`</div>`;}
+  return html;
+}
+function renderMissions(){
+  const grid=document.getElementById('missions-grid');grid.innerHTML='';
+  MISSIONS.forEach(m=>{
+    const s=state[m.id];const lp=getLevelProgress(s.points);const done=!canComplete(m.id);
+    const card=document.createElement('div');card.className='card';
+    let extra='';
+    if(m.hasBookTracker)extra=renderReadingExtra(s,m);
+    if(m.hasMinutes){const mins=s.minutes||0;const pct=Math.round(mins/m.minutesGoal*100);extra+=`<div class="stats-row" style="margin-bottom:7px"><div class="stat-item">⏱️ <span>${mins}</span> / ${m.minutesGoal} دقيقة</div><div class="stat-item">إنجاز: <span>${pct}%</span></div></div><div class="xp-bar-bg" style="margin-bottom:11px;height:5px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}aa)"></div></div>`;}
+    if(m.hasNutri)extra+=renderNutri();
+    card.innerHTML=`<div class="mission-header"><div class="mission-title"><div class="mission-icon" style="background:${m.iconBg}">${m.icon}</div><div><div>${m.name}</div><div style="font-size:10px;color:var(--text-dim);font-weight:400">${m.desc}</div></div></div><div class="level-badge lvl-${lp.level}">Lv.${lp.level}</div></div><div class="xp-section"><div class="xp-info"><span class="xp-label">المجموع: ${s.points} نقطة</span><span class="xp-value">${lp.current}/${lp.needed} XP</span></div><div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${lp.pct}%;background:linear-gradient(90deg,${m.color},${m.color}88)"></div></div></div>${extra}<div class="stats-row" style="margin-bottom:10px"><div class="stat-item">🔥 streak: <span>${s.streak||0}</span> يوم</div>${done?`<div class="stat-item" style="color:var(--green)">✓ <span style="color:var(--green)">مكتمل اليوم</span></div>`:''}</div>${!done?`<button class="complete-btn" onclick="complete('${m.id}')">✓ أنجزت المهمة</button>`:''}${m.hasRestDay&&!done?`<button class="complete-btn rest-day" onclick="restDay('${m.id}')" style="margin-top:6px">😴 يوم راحة</button>`:''}`;
+    grid.appendChild(card);
+  });
+}
+function svgRing(pct,color,size=70){
+  const r=size*.38,cx=size/2,cy=size/2,circ=2*Math.PI*r,dash=pct/100*circ;
+  return`<div class="ring-wrap"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#ffffff10" stroke-width="4.5"/><circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="4.5" stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ*.25}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/></svg><div class="ring-text"><div style="font-size:13px;font-weight:900;color:${color}">${pct}%</div></div></div>`;
+}
+function renderDashboard(){
+  const grid=document.getElementById('dash-grid');grid.innerHTML='';
+  (()=>{const s=state.reading;const lp=getLevelProgress(s.points);const cb=s.currentBook;const done=s.completedBooks||[];const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">📖 القراءة</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center"><div style="font-size:32px;font-weight:900;color:var(--gold);line-height:1;margin-top:4px">${done.length}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">كتاب مكتمل</div></div></div>${cb?`<div class="dash-sub" style="margin-top:6px">الحالي: <span style="color:var(--cyan);font-size:11px">${cb.title}</span></div>`:'<div class="dash-sub" style="margin-top:6px;font-size:11px">لا يوجد كتاب حالي</div>'}<div class="stats-row" style="margin-top:8px"><div class="stat-item">🔥 streak: <span>${s.streak||0}</span> يوم</div></div>`;grid.appendChild(card);})();
+  (()=>{const s=state.gym;const lp=getLevelProgress(s.points);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">⚡ النادي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
+  (()=>{const s=state.consulting;const lp=getLevelProgress(s.points);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">💼 الاستشارات</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
+  (()=>{const s=state.health;const lp=getLevelProgress(s.points);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">💧 ماء وأكل صحي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
+  (()=>{const s=state.calligraphy;const lp=getLevelProgress(s.points);const mins=s.minutes||0;const pct=Math.round(mins/700*100);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">✒️ الخط العربي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div>${svgRing(pct,'#f59e0b')}</div><div class="dash-sub" style="margin-top:6px">دقائق: <span>${mins} / 700</span></div><div class="xp-bar-bg" style="margin-top:7px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,#f59e0b,#f59e0b88)"></div></div><div style="font-size:10px;color:var(--text-dim);margin-top:4px">نسبة الإنجاز ${pct}%</div>`;grid.appendChild(card);})();
+  const booksCard=document.getElementById('dash-books-card');const done=state.reading.completedBooks||[];
+  if(done.length===0){booksCard.innerHTML=`<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px">📚 لم تكمل أي كتاب بعد — يلا اقرأ!</div>`;}
+  else{
+    const genreCount={};done.forEach(b=>{genreCount[b.genre]=(genreCount[b.genre]||0)+1;});
+    let html=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><div style="font-size:22px;font-weight:900;color:var(--gold)">${done.length}</div><div style="font-size:12px;color:var(--text-dim)">كتاب مكتمل</div></div><div class="dash-books-list">`;
+    done.slice().reverse().forEach((b,i)=>{const gc=GENRE_CLRS[b.genre]||'#9ca3af';const num=done.length-i;const genrePct=Math.round((genreCount[b.genre]/done.length)*100);html+=`<div class="dash-book-item"><div style="font-size:11px;color:var(--text-dim);min-width:20px">#${num}</div><div class="dash-book-name">${b.title}</div><div style="display:flex;align-items:center;gap:5px;flex-shrink:0"><span style="font-size:10px;padding:2px 8px;border-radius:9px;background:${gc}20;color:${gc};white-space:nowrap">${b.genre}</span><span style="font-size:10px;color:${gc};font-weight:700;white-space:nowrap">${genrePct}%</span></div><div style="font-size:10px;color:var(--text-dim)">${b.pages}ص</div><div class="dash-book-date">${b.finishedDate||''}</div></div>`;});
+    html+=`</div>`;booksCard.innerHTML=html;
+  }
+}
+function renderLevels(){
+  const grid=document.getElementById('levels-grid');grid.innerHTML='';
+  const NDD={E:100,D:100,C:100,B:100,A:200,S:'∞'};
+  MISSIONS.forEach(m=>{
+    const s=state[m.id];const curLvl=getLevel(s.points);const card=document.createElement('div');card.className='card';
+    card.innerHTML=`<div style="margin-bottom:10px;font-weight:700;font-size:14px">${m.icon} ${m.name}</div>`;
+    const ladder=document.createElement('div');ladder.className='level-ladder';
+    LEVELS.forEach(lvl=>{const reached=s.points>=THR[lvl];const isCur=curLvl===lvl;const row=document.createElement('div');row.className='level-row'+(isCur?' current':'')+(reached&&!isCur?' completed':'');row.innerHTML=`<div class="level-name" style="color:${LVL_CLRS[lvl]}">Lv.${lvl}</div><div class="level-req">${THR[lvl]} نقطة${lvl!=='S'?` (+${NDD[lvl]})`:'+'}</div><div>${reached?(isCur?'⚡':'✓'):'○'}</div>`;ladder.appendChild(row);});
+    card.appendChild(ladder);grid.appendChild(card);
+  });
+}
+function render(){renderMissions();renderDashboard();renderLevels();}
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');btn.classList.add('active');
+}
+(function(){
+  const c=document.getElementById('particles'),ctx=c.getContext('2d');let W,H,pts=[];
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  for(let i=0;i<55;i++)pts.push({x:Math.random()*2000,y:Math.random()*2000,r:Math.random()*1.4+.3,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,a:Math.random()});
+  function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.a+=.005;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,212,255,${.25+.3*Math.sin(p.a)})`;ctx.fill();});requestAnimationFrame(draw);}
+  draw();
+})();
+render();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{});});}
+</script>
+</body>
+</html>
