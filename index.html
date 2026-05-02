@@ -325,9 +325,11 @@ function renderMissions(){
     if(m.hasMinutes){const mins=s.minutes||0;const pct=Math.round(mins/m.minutesGoal*100);extra+=`<div class="stats-row" style="margin-bottom:7px"><div class="stat-item">⏱️ <span>${mins}</span> / ${m.minutesGoal} دقيقة</div><div class="stat-item">إنجاز: <span>${pct}%</span></div></div><div class="xp-bar-bg" style="margin-bottom:11px;height:5px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}aa)"></div></div>`;}
     if(m.hasNutri)extra+=renderNutri();
 ${s.canUndo?`<button class="complete-btn" onclick="undoComplete('${m.id}')" style="margin-top:6px;border-color:var(--red);color:var(--red)">↩️ تراجع (10ث)</button>`:''}
-${m.hasRestDay&&!done&&!s.canUndo?`<button class="complete-btn rest-day" onclick="restDay('${m.id}')" style="margin-top:6px">😴 يوم راحة</button>`:''}    grid.appendChild(card);
+${m.hasRestDay&&!done&&!s.canUndo?`<button class="complete-btn rest-day" onclick="restDay('${m.id}')" style="margin-top:6px">😴 يوم راحة</button>`:''}`;
+    grid.appendChild(card);
   });
 }
+
 function renderNutri(){
   const dtype=gymDayType();
   if(dtype===null){return`<div class="nutri-panel unknown"><div class="nutri-title" style="color:var(--text-dim)">⏳ سجّل النادي أو الراحة أولاً</div></div>`;}
