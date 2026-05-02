@@ -219,7 +219,7 @@ function getGlobalLevelProgress(pts){
   const lvl=getGlobalLevel(pts);const start=lvl*100;const end=(lvl+1)*100;
   const needed=end-start;const cur=pts-start;const pct=Math.min(100,Math.round(Math.max(0,cur)/needed*100));
   const titleIdx=Math.min(Math.floor((lvl-1)/10),GLOBAL_TITLES.length-1);
-const title=GLOBAL_TITLES[titleIdx];
+  const title=GLOBAL_TITLES[titleIdx];
   return{lvl,start,end,cur:Math.max(0,cur),needed,pct,title};
 }
 function loadState(){try{return JSON.parse(localStorage.getItem('sl_v4')||'{}');}catch{return{};}}
@@ -315,21 +315,6 @@ function addPages(){
   else{saveState(state);showNotif(`+${add} صفحة ✓  (${cb.pagesRead}/${cb.pages})`);}
   render();
 }
-function renderMissions(){
-  const grid=document.getElementById('missions-grid');grid.innerHTML='';
-  MISSIONS.forEach(m=>{
-    const s=state[m.id];const lp=getLevelProgress(s.points);const done=!canComplete(m.id);
-    const card=document.createElement('div');card.className='card';
-    let extra='';
-    if(m.hasBookTracker)extra=renderReadingExtra(s,m);
-    if(m.hasMinutes){const mins=s.minutes||0;const pct=Math.round(mins/m.minutesGoal*100);extra+=`<div class="stats-row" style="margin-bottom:7px"><div class="stat-item">⏱️ <span>${mins}</span> / ${m.minutesGoal} دقيقة</div><div class="stat-item">إنجاز: <span>${pct}%</span></div></div><div class="xp-bar-bg" style="margin-bottom:11px;height:5px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}aa)"></div></div>`;}
-    if(m.hasNutri)extra+=renderNutri();
-${s.canUndo?`<button class="complete-btn" onclick="undoComplete('${m.id}')" style="margin-top:6px;border-color:var(--red);color:var(--red)">↩️ تراجع (10ث)</button>`:''}
-${m.hasRestDay&&!done&&!s.canUndo?`<button class="complete-btn rest-day" onclick="restDay('${m.id}')" style="margin-top:6px">😴 يوم راحة</button>`:''}`;
-    grid.appendChild(card);
-  });
-}
-
 function renderNutri(){
   const dtype=gymDayType();
   if(dtype===null){return`<div class="nutri-panel unknown"><div class="nutri-title" style="color:var(--text-dim)">⏳ سجّل النادي أو الراحة أولاً</div></div>`;}
@@ -346,6 +331,19 @@ function renderReadingExtra(s,m){
   if(done.length>0){html+=`<div class="books-list">`;done.slice().reverse().forEach(b=>{const gc=GENRE_CLRS[b.genre]||'#9ca3af';html+=`<div class="book-item"><div class="book-item-name">${b.title}</div><span style="font-size:10px;padding:2px 8px;border-radius:9px;background:${gc}20;color:${gc}">${b.genre}</span><div style="font-size:10px;color:var(--text-dim)">${b.pages}ص</div></div>`;});html+=`</div>`;}
   return html;
 }
+function renderMissions(){
+  const grid=document.getElementById('missions-grid');grid.innerHTML='';
+  MISSIONS.forEach(m=>{
+    const s=state[m.id];const lp=getLevelProgress(s.points);const done=!canComplete(m.id);
+    const card=document.createElement('div');card.className='card';
+    let extra='';
+    if(m.hasBookTracker)extra=renderReadingExtra(s,m);
+    if(m.hasMinutes){const mins=s.minutes||0;const pct=Math.round(mins/m.minutesGoal*100);extra+=`<div class="stats-row" style="margin-bottom:7px"><div class="stat-item">⏱️ <span>${mins}</span> / ${m.minutesGoal} دقيقة</div><div class="stat-item">إنجاز: <span>${pct}%</span></div></div><div class="xp-bar-bg" style="margin-bottom:11px;height:5px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}aa)"></div></div>`;}
+    if(m.hasNutri)extra+=renderNutri();
+    card.innerHTML=`<div class="mission-header"><div class="mission-title"><div class="mission-icon" style="background:${m.iconBg}">${m.icon}</div><div><div>${m.name}</div><div style="font-size:10px;color:var(--text-dim);font-weight:400">${m.desc}</div></div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><div class="level-badge lvl-${lp.level}">Lv.${lp.level}</div><div style="font-size:10px;color:var(--cyan)">+${m.globalPts} عام</div></div></div><div class="xp-section"><div class="xp-info"><span class="xp-label">المجموع: ${s.points} نقطة</span><span class="xp-value">${lp.current}/${lp.needed} XP</span></div><div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${lp.pct}%;background:linear-gradient(90deg,${m.color},${m.color}88)"></div></div></div>${extra}<div class="stats-row" style="margin-bottom:10px"><div class="stat-item">🔥 streak: <span>${s.streak||0}</span> يوم</div>${done?`<div class="stat-item" style="color:var(--green)">✓ <span style="color:var(--green)">مكتمل اليوم</span></div>`:''}</div>${!done?`<button class="complete-btn" onclick="complete('${m.id}')">✓ أنجزت المهمة</button>`:''}${s.canUndo?`<button class="complete-btn" onclick="undoComplete('${m.id}')" style="margin-top:6px;border-color:var(--red);color:var(--red)">↩️ تراجع (10ث)</button>`:''}${m.hasRestDay&&!done&&!s.canUndo?`<button class="complete-btn rest-day" onclick="restDay('${m.id}')" style="margin-top:6px">😴 يوم راحة</button>`:''}`;
+    grid.appendChild(card);
+  });
+}
 function svgRing(pct,color,size=70){
   const r=size*.38,cx=size/2,cy=size/2,circ=2*Math.PI*r,dash=pct/100*circ;
   return`<div class="ring-wrap"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#ffffff10" stroke-width="4.5"/><circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="4.5" stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ*.25}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/></svg><div class="ring-text"><div style="font-size:13px;font-weight:900;color:${color}">${pct}%</div></div></div>`;
@@ -353,7 +351,7 @@ function svgRing(pct,color,size=70){
 function renderGlobalBanner(){
   const gp=getGlobalLevelProgress(state.global.points);
   const banner=document.getElementById('globalBanner');
-  banner.innerHTML=`<div class="global-banner-inner"><div class="global-lvl-left"><div class="global-lvl-circle"><div class="global-lvl-num">${gp.lvl}</div></div><div><div class="global-lvl-label">المستوى العام</div><div class="global-lvl-title">${gp.title}</div><div class="global-lvl-pts">${state.global.points} نقطة إجمالا</div></div></div><div class="global-xp-section"><div class="global-xp-info"><span style="color:var(--text-dim)">Level ${gp.lvl}</span><span style="color:var(--cyan)">${gp.cur}/${gp.needed} XP</span></div><div class="global-xp-bar-bg"><div class="global-xp-bar-fill" style="width:${gp.pct}%"></div></div><div style="font-size:10px;color:var(--text-dim);margin-top:4px;text-align:left">التالي: Level ${gp.lvl+1} — ${gp.needed-gp.cur} نقطة متبقية</div></div></div>`;
+  banner.innerHTML=`<div class="global-banner-inner"><div class="global-lvl-left"><div class="global-lvl-circle"><div class="global-lvl-num">${gp.lvl}</div></div><div><div class="global-lvl-label">المستوى العام</div><div class="global-lvl-title">${gp.title}</div><div class="global-lvl-pts">${state.global.points} نقطة إجمالاً</div></div></div><div class="global-xp-section"><div class="global-xp-info"><span style="color:var(--text-dim)">Level ${gp.lvl}</span><span style="color:var(--cyan)">${gp.cur}/${gp.needed} XP</span></div><div class="global-xp-bar-bg"><div class="global-xp-bar-fill" style="width:${gp.pct}%"></div></div><div style="font-size:10px;color:var(--text-dim);margin-top:4px;text-align:left">التالي: Level ${gp.lvl+1} — ${gp.needed-gp.cur} نقطة متبقية</div></div></div>`;
 }
 function renderDashboard(){
   const grid=document.getElementById('dash-grid');grid.innerHTML='';
@@ -387,7 +385,7 @@ function renderLevels(){
   html+=`<div class="level-ladder">`;
   for(let i=1;i<=Math.max(10,gp.lvl+3);i++){
     const needed=i*100;const reached=state.global.points>=needed;const isCur=gp.lvl===i;
-    const title=GLOBAL_TITLES[Math.min(i-1,GLOBAL_TITLES.length-1)];
+    const title=GLOBAL_TITLES[Math.min(Math.floor((i-1)/10),GLOBAL_TITLES.length-1)];
     html+=`<div class="level-row${isCur?' current':''}${reached&&!isCur?' completed':''}"><div class="level-name" style="color:var(--cyan)">Lv.${i}</div><div class="level-req">${title} — ${needed} نقطة</div><div>${reached?(isCur?'⚡':'✓'):'○'}</div></div>`;
   }
   html+=`</div>`;
