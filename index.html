@@ -218,7 +218,8 @@ function getGlobalLevel(pts){let lvl=1;while(pts>=(lvl*100))lvl++;return lvl-1||
 function getGlobalLevelProgress(pts){
   const lvl=getGlobalLevel(pts);const start=lvl*100;const end=(lvl+1)*100;
   const needed=end-start;const cur=pts-start;const pct=Math.min(100,Math.round(Math.max(0,cur)/needed*100));
-  const title=GLOBAL_TITLES[Math.min(lvl-1,GLOBAL_TITLES.length-1)];
+  const titleIdx=Math.min(Math.floor((lvl-1)/10),GLOBAL_TITLES.length-1);
+const title=GLOBAL_TITLES[titleIdx];
   return{lvl,start,end,cur:Math.max(0,cur),needed,pct,title};
 }
 function loadState(){try{return JSON.parse(localStorage.getItem('sl_v4')||'{}');}catch{return{};}}
