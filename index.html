@@ -289,8 +289,7 @@ const BASE_MISSIONS=[
   {id:'reading',name:'القراءة',icon:'📖',iconBg:'#3b82f615',desc:'قراءة 30 صفحة يومياً',color:'#3b82f6',hasRestDay:false,hasBookTracker:true,globalPts:1,stats:['knowledge']},
   {id:'gym',name:'النادي',icon:'⚡',iconBg:'#22c55e15',desc:'الذهاب للنادي',color:'#22c55e',hasRestDay:true,globalPts:5,stats:['strength','endurance']},
   {id:'consulting',name:'الاستشارات',icon:'💼',iconBg:'#a855f715',desc:'تجهيز للاستشارات',color:'#a855f7',hasRestDay:false,globalPts:5,stats:['focus','discipline']},
-  {id:'calligraphy',name:'الخط العربي',icon:'✒️',iconBg:'#f59e0b15',desc:'10 دقايق يومياً',color:'#f59e0b',hasRestDay:false,hasMinutes:true,minutesGoal:1500,minutesPerSession:10,globalPts:4,stats:['artistry']},
-  {id:'health',name:'ماء وأكل صحي',icon:'💧',iconBg:'#06b6d415',desc:'الماء والأكل الصحي يومياً',color:'#06b6d4',hasRestDay:false,hasNutri:true,globalPts:3,stats:['vitality']},
+{id:'calligraphy',name:'الخط العربي',icon:'✒️',iconBg:'#f59e0b15',desc:'10 دقايق يومياً',color:'#f59e0b',hasRestDay:false,hasMinutes:true,minutesGoal:1500,minutesPerSession:10,globalPts:3,sessionPts:4,stats:['artistry']},  {id:'health',name:'ماء وأكل صحي',icon:'💧',iconBg:'#06b6d415',desc:'الماء والأكل الصحي يومياً',color:'#06b6d4',hasRestDay:false,hasNutri:true,globalPts:3,stats:['vitality']},
   {id:'glowup',name:'Glow up',icon:'🌟',iconBg:'#ec489915',desc:'تمارين عضلات الوجه ونحت الفك',color:'#ec4899',hasRestDay:false,globalPts:3,stats:['appearance'],dailyLimit:3},
 ];
 const GLOBAL_TITLES=['E Level','D Level','C Level','B Level','Low A Level','A Level','High A Level','Low S Level','S Level','🔥 High S Level 🔥'];
@@ -389,8 +388,9 @@ function complete(id){
   }
   const isGym=id==='gym';
   const oldPts=state[id].points;
-  if(isGym)state[id].points=parseFloat((state[id].points+1.5).toFixed(1));
-  else state[id].points+=1;
+if(isGym)state[id].points=parseFloat((state[id].points+1.5).toFixed(1));
+else if(id==='calligraphy')state[id].points+=4;
+else state[id].points+=1;  else state[id].points+=1;
   const oldLvl=getLevel(Math.floor(oldPts));
   const newLvl=getLevel(Math.floor(state[id].points));
   const yest=new Date(Date.now()-86400000).toISOString().split('T')[0];
