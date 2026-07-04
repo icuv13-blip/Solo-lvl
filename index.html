@@ -430,8 +430,8 @@ function undoComplete(id){
   const m=getMissions().find(x=>x.id===id);
   if(!state[id].canUndo)return;
   const isGym=id==='gym';
-  state[id].points=parseFloat((Math.max(0,state[id].points-(isGym?1.5:1))).toFixed(1));
-  state[id].lastDate=null;state[id].streak=Math.max(0,state[id].streak-1);state[id].canUndo=false;
+const deduct=isGym?1.5:(id==='calligraphy'?4:1);
+state[id].points=parseFloat((Math.max(0,state[id].points-deduct)).toFixed(1));  state[id].lastDate=null;state[id].streak=Math.max(0,state[id].streak-1);state[id].canUndo=false;
   const gpts=m.globalPts||1;
   state.global.points=parseFloat((Math.max(0,state.global.points-gpts)).toFixed(1));
   state.global.history.shift();
