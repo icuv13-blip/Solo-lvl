@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#050810">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Solo Leveling">
@@ -120,7 +121,7 @@
   .level-row.completed{opacity:.5;}
   .level-name{font-size:12px;font-weight:800;min-width:52px;}
   .level-req{font-size:10px;color:var(--text-dim);flex:1;}
-  .notif{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid var(--cyan);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:600;color:var(--cyan);box-shadow:0 0 35px var(--cyan-glow);z-index:1000;transition:transform .5s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
+  .notif{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid var(--cyan);border-radius:10px;padding:12px 22px;font-size:13px;font-weight:600;color:var(--cyan);box-shadow:0 0 35px var(--cyan-glow);z-index:1000;transition:transform .5s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
   .notif.show{transform:translateX(-50%) translateY(0);}
   .notif.level-up{border-color:var(--gold);color:var(--gold);box-shadow:0 0 35px var(--gold-glow);font-size:15px;}
   .glow-E{color:var(--E);}.glow-D{color:var(--D);}.glow-C{color:var(--C);}.glow-B{color:var(--B);}
@@ -148,27 +149,30 @@
   .postponed-card{background:#f59e0b08;border:1px solid #f59e0b30;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;}
   .postponed-name{font-size:14px;font-weight:700;}
   .postponed-pts{font-size:11px;color:var(--text-dim);margin-top:2px;}
-
   /* Hunter Card */
-  .hunter-card{background:linear-gradient(135deg,#0a0f1e,#0c1428);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;overflow:hidden;}
+  .hunter-card{background:linear-gradient(135deg,#0a0f1e,#0c1428);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden;}
   .hunter-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--purple));}
-  .hunter-card-top{display:flex;gap:20px;margin-bottom:20px;flex-wrap:wrap;}
-  .hunter-illustration{width:140px;height:180px;border-radius:10px;border:1px solid var(--border);background:#ffffff05;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;position:relative;}
-  .hunter-illustration img{width:100%;height:100%;object-fit:cover;}
-  .hunter-illustration-placeholder{color:var(--text-dim);font-size:12px;text-align:center;padding:10px;}
-  .upload-btn{position:absolute;bottom:0;left:0;right:0;padding:6px;background:#000000aa;color:var(--cyan);font-size:11px;text-align:center;cursor:pointer;border:none;font-family:'Tajawal',sans-serif;}
-  .hunter-info{flex:1;min-width:0;}
-  .hunter-name{font-size:20px;font-weight:900;color:var(--cyan);margin-bottom:4px;}
-  .hunter-rank{font-size:13px;font-weight:700;margin-bottom:12px;}
+  .hunter-illustration-wrap{width:100%;border-radius:12px;border:1px solid var(--border);background:#ffffff05;overflow:hidden;position:relative;margin-bottom:16px;min-height:300px;display:flex;align-items:center;justify-content:center;}
+  .hunter-illustration-wrap img{width:100%;height:auto;display:block;}
+  .hunter-illustration-placeholder{color:var(--text-dim);font-size:14px;text-align:center;padding:40px;}
+  .upload-overlay{position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,#000000cc);display:flex;justify-content:center;}
+  .upload-btn-card{padding:8px 20px;border:1px solid var(--cyan);border-radius:8px;background:#000000aa;color:var(--cyan);font-size:13px;font-family:'Tajawal',sans-serif;font-weight:600;cursor:pointer;}
+  .hunter-info{margin-bottom:14px;}
+  .hunter-name{font-size:22px;font-weight:900;color:var(--cyan);margin-bottom:2px;}
+  .hunter-rank{font-size:14px;font-weight:700;margin-bottom:10px;}
   .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
   .stat-bar-item{background:#ffffff05;border-radius:8px;padding:8px 10px;}
   .stat-bar-label{font-size:10px;color:var(--text-dim);margin-bottom:4px;display:flex;justify-content:space-between;}
   .stat-bar-bg{width:100%;height:5px;background:#ffffff10;border-radius:3px;overflow:hidden;}
   .stat-bar-fill{height:100%;border-radius:3px;transition:width .8s cubic-bezier(.34,1.56,.64,1);}
-  .archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:10px;}
+  .archive-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-top:10px;}
   .archive-item{border-radius:8px;overflow:hidden;border:1px solid var(--border);position:relative;aspect-ratio:3/4;}
   .archive-item img{width:100%;height:100%;object-fit:cover;}
   .archive-date{position:absolute;bottom:0;left:0;right:0;background:#000000bb;font-size:9px;text-align:center;padding:3px;color:var(--text-dim);}
+  /* Calligraphy notebook system */
+  .notebook-panel{background:#f59e0b08;border:1px solid #f59e0b30;border-radius:9px;padding:12px;margin:8px 0;}
+  .notebook-title{font-size:11px;font-weight:700;color:#f59e0b;margin-bottom:8px;}
+  .notebook-progress{display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-bottom:5px;}
 </style>
 </head>
 <body>
@@ -211,16 +215,19 @@
       <option value="3" selected>نقطة عامة: +3 (متوسط)</option>
       <option value="5">نقطة عامة: +5 (ثقيل)</option>
     </select>
-    <select class="sl-select" id="newMissionStat">
-      <option value="strength">STRENGTH</option>
-      <option value="endurance">ENDURANCE</option>
-      <option value="discipline">DISCIPLINE</option>
-      <option value="knowledge">KNOWLEDGE</option>
-      <option value="vitality">VITALITY</option>
-      <option value="focus">FOCUS</option>
-      <option value="appearance">APPEARANCE</option>
-      <option value="artistry">ARTISTRY</option>
-    </select>
+    <div style="margin-bottom:9px">
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:6px">الـ Stats المرتبطة (اختر واحد أو أكثر)</div>
+      <div id="statCheckboxes" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" value="strength" style="accent-color:var(--cyan)"> ⚔️ STRENGTH</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" value="endurance" style="accent-color:var(--cyan)"> 🏃 ENDURANCE</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" value="discipline" style="accent-color:var(--cyan)"> 🔥 DISCIPLINE</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" value="knowledge" style="accent-color:var(--cyan)"> 📚 KNOWLEDGE</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" value="vitality" style="accent-color:var(--cyan)"> 💧 VITALITY</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" value="focus" style="accent-color:var(--cyan)"> 🎯 FOCUS</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" value="appearance" style="accent-color:var(--cyan)"> 🌟 APPEARANCE</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="checkbox" value="artistry" style="accent-color:var(--cyan)"> ✒️ ARTISTRY</label>
+      </div>
+    </div>
     <div class="modal-actions">
       <button class="btn-primary" onclick="confirmAddMission()">إضافة</button>
       <button class="btn-cancel" onclick="closeAddMission()">إلغاء</button>
@@ -264,7 +271,7 @@
     <div class="hunter-card" id="hunter-card-el"></div>
     <div class="sec-title" style="margin-top:20px">🗂 أرشيف الرسمات</div>
     <div class="card">
-      <div class="archive-grid" id="archive-grid"></div>
+      <div id="archive-grid" class="archive-grid"></div>
     </div>
   </div>
 
@@ -276,29 +283,30 @@
   </div>
 </div>
 
-<!-- Hidden file input -->
 <input type="file" id="illustrationInput" accept="image/*" style="display:none" onchange="handleIllustrationUpload(event)"/>
 <script>
 const BASE_MISSIONS=[
-  {id:'reading',name:'القراءة',icon:'📖',iconBg:'#3b82f615',desc:'قراءة 30 صفحة يومياً',color:'#3b82f6',hasRestDay:false,hasBookTracker:true,globalPts:1,stat:'knowledge'},
-  {id:'gym',name:'النادي',icon:'⚡',iconBg:'#22c55e15',desc:'الذهاب للنادي',color:'#22c55e',hasRestDay:true,globalPts:5,stat:'strength'},
-  {id:'consulting',name:'الاستشارات',icon:'💼',iconBg:'#a855f715',desc:'تجهيز للاستشارات',color:'#a855f7',hasRestDay:false,globalPts:5,stat:'focus'},
-  {id:'calligraphy',name:'الخط العربي',icon:'✒️',iconBg:'#f59e0b15',desc:'10 دقايق يومياً',color:'#f59e0b',hasRestDay:false,hasMinutes:true,minutesGoal:700,minutesPerSession:10,globalPts:1,stat:'artistry'},
-  {id:'health',name:'ماء وأكل صحي',icon:'💧',iconBg:'#06b6d415',desc:'الماء والأكل الصحي يومياً',color:'#06b6d4',hasRestDay:false,hasNutri:true,globalPts:3,stat:'vitality'},
-  {id:'glowup',name:'Glow up',icon:'🌟',iconBg:'#ec489915',desc:'تمارين عضلات الوجه ونحت الفك',color:'#ec4899',hasRestDay:false,globalPts:3,stat:'appearance'},
+  {id:'reading',name:'القراءة',icon:'📖',iconBg:'#3b82f615',desc:'قراءة 30 صفحة يومياً',color:'#3b82f6',hasRestDay:false,hasBookTracker:true,globalPts:1,stats:['knowledge']},
+  {id:'gym',name:'النادي',icon:'⚡',iconBg:'#22c55e15',desc:'الذهاب للنادي',color:'#22c55e',hasRestDay:true,globalPts:5,stats:['strength','endurance']},
+  {id:'consulting',name:'الاستشارات',icon:'💼',iconBg:'#a855f715',desc:'تجهيز للاستشارات',color:'#a855f7',hasRestDay:false,globalPts:5,stats:['focus','discipline']},
+  {id:'calligraphy',name:'الخط العربي',icon:'✒️',iconBg:'#f59e0b15',desc:'10 دقايق يومياً',color:'#f59e0b',hasRestDay:false,hasMinutes:true,minutesGoal:1500,minutesPerSession:10,globalPts:4,stats:['artistry']},
+  {id:'health',name:'ماء وأكل صحي',icon:'💧',iconBg:'#06b6d415',desc:'الماء والأكل الصحي يومياً',color:'#06b6d4',hasRestDay:false,hasNutri:true,globalPts:3,stats:['vitality']},
+  {id:'glowup',name:'Glow up',icon:'🌟',iconBg:'#ec489915',desc:'تمارين عضلات الوجه ونحت الفك',color:'#ec4899',hasRestDay:false,globalPts:3,stats:['appearance'],dailyLimit:3},
 ];
-
 const GLOBAL_TITLES=['E Level','D Level','C Level','B Level','Low A Level','A Level','High A Level','Low S Level','S Level','🔥 High S Level 🔥'];
 const LEVELS=['E','D','C','B','A','S'];
 const THR={E:0,D:100,C:200,B:300,A:400,S:600};
 const LVL_CLRS={E:'#6b7280',D:'#22c55e',C:'#3b82f6',B:'#a855f7',A:'#f59e0b',S:'#ef4444'};
 const GENRE_CLRS={ديني:'#22c55e',أدب:'#ec4899',تاريخ:'#f59e0b',علمي:'#3b82f6',تطوير:'#a855f7',رواية:'#06b6d4',أخرى:'#9ca3af'};
 const COLORS=['#3b82f6','#22c55e','#a855f7','#f59e0b','#06b6d4','#ec4899','#ef4444','#00ff88'];
-
-// Base stats (starting values)
 const BASE_STATS={strength:52,endurance:61,discipline:55,knowledge:38,vitality:62,focus:58,appearance:22,artistry:15};
 const STAT_COLORS={strength:'#ef4444',endurance:'#22c55e',discipline:'#3b82f6',knowledge:'#f59e0b',vitality:'#06b6d4',focus:'#a855f7',appearance:'#ec4899',artistry:'#f5c842'};
 const STAT_ICONS={strength:'⚔️',endurance:'🏃',discipline:'🔥',knowledge:'📚',vitality:'💧',focus:'🎯',appearance:'🌟',artistry:'✒️'};
+const NOTEBOOKS=[
+  {name:'كراسة المبتدئ',mins:500,targetLevel:'C',color:'#6b7280'},
+  {name:'كراسة المتوسط',mins:500,targetLevel:'A',color:'#3b82f6'},
+  {name:'كراسة المتقدم',mins:500,targetLevel:'S',color:'#ef4444'},
+];
 
 function getLevel(p){if(p>=600)return'S';if(p>=400)return'A';if(p>=300)return'B';if(p>=200)return'C';if(p>=100)return'D';return'E';}
 function getLevelProgress(p){
@@ -314,146 +322,159 @@ function getGlobalLevelProgress(pts){
   const title=GLOBAL_TITLES[titleIdx];
   return{lvl,start,end,cur:Math.max(0,cur),needed,pct,title};
 }
-
 function loadState(){try{return JSON.parse(localStorage.getItem('sl_v4')||'{}');}catch{return{};}}
 function saveState(s){localStorage.setItem('sl_v4',JSON.stringify(s));}
 let state=loadState();
-
-function getMissions(){
-  const custom=state.customMissions||[];
-  return[...BASE_MISSIONS,...custom];
-}
-
+function getMissions(){return[...BASE_MISSIONS,...(state.customMissions||[])];}
 function initState(){
   getMissions().forEach(m=>{
-    if(!state[m.id])state[m.id]={points:0,streak:0,lastDate:null,minutes:0,currentBook:null,completedBooks:[],postponed:false};
+    if(!state[m.id])state[m.id]={points:0,streak:0,lastDate:null,minutes:0,currentBook:null,completedBooks:[],postponed:false,todayCount:0};
     if(!state[m.id].completedBooks)state[m.id].completedBooks=[];
     if(state[m.id].currentBook===undefined)state[m.id].currentBook=null;
     if(!state[m.id].minutes)state[m.id].minutes=0;
     if(state[m.id].postponed===undefined)state[m.id].postponed=false;
+    if(!state[m.id].todayCount)state[m.id].todayCount=0;
   });
   if(!state.global)state.global={points:0,history:[]};
   if(!state.global.history)state.global.history=[];
   if(!state.customMissions)state.customMissions=[];
   if(!state.hunter)state.hunter={illustration:null,archive:[]};
+  getMissions().forEach(m=>{if(state[m.id].lastDate!==today())state[m.id].todayCount=0;});
   saveState(state);
 }
 initState();
-
 function today(){return new Date().toISOString().split('T')[0];}
-function canComplete(id){return state[id].lastDate!==today();}
+function canComplete(id){
+  const m=getMissions().find(x=>x.id===id);
+  if(m?.dailyLimit)return(state[id].todayCount||0)<m.dailyLimit;
+  return state[id].lastDate!==today();
+}
 function gymDayType(){const g=state.gym;if(g.lastDate!==today())return null;return g.isRestDay?'rest':'workout';}
+
+// Undo banner (inline in card, not floating notif)
+let _undoTimer=null;
+function showUndoBanner(id){
+  clearTimeout(_undoTimer);
+  const el=document.getElementById('undo-banner-'+id);
+  if(el){el.style.display='block';_undoTimer=setTimeout(()=>{if(el)el.style.display='none';},10000);}
+}
 
 function showNotif(msg,isLevelUp=false){
   const el=document.getElementById('notif');
   el.textContent=msg;el.className='notif'+(isLevelUp?' level-up':'')+' show';
   setTimeout(()=>{el.className='notif'+(isLevelUp?' level-up':'');},3500);
 }
-
-// Compute dynamic stats based on mission points
 function computeStats(){
-  const s=state;
-  const gymPts=s.gym?.points||0;
-  const readPts=s.reading?.points||0;
-  const consultPts=s.consulting?.points||0;
-  const calligPts=s.calligraphy?.points||0;
-  const healthPts=s.health?.points||0;
-  const glowPts=s.glowup?.points||0;
-
+  const gymPts=state.gym?.points||0;const readPts=state.reading?.points||0;
+  const consultPts=state.consulting?.points||0;const calligPts=state.calligraphy?.points||0;
+  const healthPts=state.health?.points||0;const glowPts=state.glowup?.points||0;
   const maxStreak=Math.max(...getMissions().map(m=>state[m.id]?.streak||0));
-  const totalPts=s.global?.points||0;
-
   return{
-    strength:Math.min(100,BASE_STATS.strength+Math.round(gymPts*0.5)),
-    endurance:Math.min(100,BASE_STATS.endurance+Math.round((gymPts+maxStreak)*0.3)),
-    discipline:Math.min(100,BASE_STATS.discipline+Math.round(maxStreak*0.5)),
-    knowledge:Math.min(100,BASE_STATS.knowledge+Math.round(readPts*0.8)),
-    vitality:Math.min(100,BASE_STATS.vitality+Math.round(healthPts*0.5)),
-    focus:Math.min(100,BASE_STATS.focus+Math.round(consultPts*0.5)),
-    appearance:Math.min(100,BASE_STATS.appearance+Math.round(glowPts*0.8)),
-    artistry:Math.min(100,BASE_STATS.artistry+Math.round(calligPts*0.8)),
+    strength:Math.min(100,BASE_STATS.strength+Math.round(gymPts*0.3)),
+    endurance:Math.min(100,BASE_STATS.endurance+Math.round((gymPts+maxStreak)*0.2)),
+    discipline:Math.min(100,BASE_STATS.discipline+Math.round(maxStreak*0.4)),
+    knowledge:Math.min(100,BASE_STATS.knowledge+Math.round(readPts*0.6)),
+    vitality:Math.min(100,BASE_STATS.vitality+Math.round(healthPts*0.4)),
+    focus:Math.min(100,BASE_STATS.focus+Math.round(consultPts*0.4)),
+    appearance:Math.min(100,BASE_STATS.appearance+Math.round(glowPts*0.6)),
+    artistry:Math.min(100,BASE_STATS.artistry+Math.round(calligPts*0.5)),
   };
 }
-
 function complete(id){
-  if(!canComplete(id)){showNotif('✓ تم إنجاز هذه المهمة اليوم');return;}
   const m=getMissions().find(x=>x.id===id);
-  const oldLvl=getLevel(state[id].points);
-  state[id].points+=1;
-  const newLvl=getLevel(state[id].points);
+  if(!canComplete(id)){
+    if(m?.dailyLimit)showNotif(`✓ أنجزت ${m.dailyLimit} مرات اليوم — اكتمل!`);
+    else showNotif('✓ تم إنجاز هذه المهمة اليوم');
+    return;
+  }
+  const isGym=id==='gym';
+  const oldPts=state[id].points;
+  if(isGym)state[id].points=parseFloat((state[id].points+1.5).toFixed(1));
+  else state[id].points+=1;
+  const oldLvl=getLevel(Math.floor(oldPts));
+  const newLvl=getLevel(Math.floor(state[id].points));
   const yest=new Date(Date.now()-86400000).toISOString().split('T')[0];
-  if(state[id].lastDate===yest)state[id].streak+=1;
-  else if(state[id].lastDate!==today())state[id].streak=1;
-  state[id].lastDate=today();state[id].isRestDay=false;
-  state[id].canUndo=true;
+  if(m?.dailyLimit){
+    state[id].todayCount=(state[id].todayCount||0)+1;
+    if(state[id].lastDate!==today()){
+      if(state[id].lastDate===yest)state[id].streak+=1;
+      else state[id].streak=1;
+    }
+    state[id].lastDate=today();
+  }else{
+    if(state[id].lastDate===yest)state[id].streak+=1;
+    else if(state[id].lastDate!==today())state[id].streak=1;
+    state[id].lastDate=today();state[id].isRestDay=false;state[id].canUndo=true;
+  }
   if(m?.hasMinutes)state[id].minutes=Math.min(m.minutesGoal,(state[id].minutes||0)+m.minutesPerSession);
   const gpts=m.globalPts||1;
   const oldGlvl=getGlobalLevel(state.global.points);
-  state.global.points+=gpts;
+  state.global.points=parseFloat((state.global.points+gpts).toFixed(1));
   const newGlvl=getGlobalLevel(state.global.points);
   state.global.history.unshift({mission:m.name,pts:gpts,date:today()});
   if(state.global.history.length>50)state.global.history=state.global.history.slice(0,50);
   saveState(state);
   if(newGlvl>oldGlvl){const gp=getGlobalLevelProgress(state.global.points);showNotif(`🌟 المستوى العام ارتفع! Level ${newGlvl} — ${gp.title}`,true);}
-  else if(newLvl!==oldLvl){showNotif(`⚡ LEVEL UP! مستوى ${oldLvl} ← مستوى ${newLvl} في ${m.name}`,true);}
-  else{showNotif(`+${gpts} نقطة عامة | +1 في ${m.name} ✓`);}
+  else if(newLvl!==oldLvl)showNotif(`⚡ LEVEL UP! مستوى ${oldLvl} ← مستوى ${newLvl} في ${m.name}`,true);
+  else{
+    if(m?.dailyLimit)showNotif(`+${gpts} نقطة | ${m.name} (${state[id].todayCount}/${m.dailyLimit}) ✓`);
+    else showNotif(`+${gpts} نقطة عامة | +${isGym?1.5:1} في ${m.name} ✓`);
+  }
   render();
-  setTimeout(()=>{state[id].canUndo=false;saveState(state);render();},10000);
+  if(!m?.dailyLimit){
+    showUndoBanner(id);
+    setTimeout(()=>{state[id].canUndo=false;saveState(state);render();},10000);
+  }
 }
-
 function undoComplete(id){
   const m=getMissions().find(x=>x.id===id);
   if(!state[id].canUndo)return;
-  state[id].points=Math.max(0,state[id].points-1);
-  state[id].lastDate=null;
-  state[id].streak=Math.max(0,state[id].streak-1);
-  state[id].canUndo=false;
+  const isGym=id==='gym';
+  state[id].points=parseFloat((Math.max(0,state[id].points-(isGym?1.5:1))).toFixed(1));
+  state[id].lastDate=null;state[id].streak=Math.max(0,state[id].streak-1);state[id].canUndo=false;
   const gpts=m.globalPts||1;
-  state.global.points=Math.max(0,state.global.points-gpts);
+  state.global.points=parseFloat((Math.max(0,state.global.points-gpts)).toFixed(1));
   state.global.history.shift();
   if(m?.hasMinutes)state[id].minutes=Math.max(0,(state[id].minutes||0)-m.minutesPerSession);
   saveState(state);showNotif(`↩️ تم التراجع عن ${m.name}`);render();
 }
-
 function restDay(id){
   if(!canComplete(id)){showNotif('✓ تم تسجيل هذا اليوم');return;}
   const yest=new Date(Date.now()-86400000).toISOString().split('T')[0];
   if(state[id].lastDate===yest)state[id].streak+=1;
   else if(state[id].lastDate!==today())state[id].streak=1;
   state[id].lastDate=today();state[id].isRestDay=true;
-  // Rest day gives 2 global pts + vitality pts
-  state.global.points+=2;
-  state.global.history.unshift({mission:'يوم راحة — '+getMissions().find(x=>x.id===id)?.name,pts:2,date:today()});
+  state[id].points=parseFloat((state[id].points+1).toFixed(1));
+  state.global.points=parseFloat((state.global.points+2).toFixed(1));
+  state.global.history.unshift({mission:'يوم راحة — النادي',pts:2,date:today()});
   if(state.health)state.health.points=(state.health.points||0)+1;
-  saveState(state);showNotif('😴 يوم راحة — +2 نقطة عامة');render();
+  saveState(state);showNotif('😴 يوم راحة — +1 نقطة نادي | +2 عام');render();
 }
-
 function postpone(id){state[id].postponed=true;saveState(state);showNotif('⏸ تم تأجيل المهمة');render();}
 function unpostpone(id){state[id].postponed=false;saveState(state);showNotif('▶️ تم إرجاع المهمة');render();}
-
-// Add Mission
 function openAddMission(){document.getElementById('addMissionModal').classList.add('open');setTimeout(()=>document.getElementById('newMissionName').focus(),80);}
-function closeAddMission(){document.getElementById('addMissionModal').classList.remove('open');}
+function closeAddMission(){
+  document.getElementById('addMissionModal').classList.remove('open');
+  document.querySelectorAll('#statCheckboxes input').forEach(x=>x.checked=false);
+}
 function confirmAddMission(){
   const name=document.getElementById('newMissionName').value.trim();
   const icon=document.getElementById('newMissionIcon').value.trim()||'⭐';
   const desc=document.getElementById('newMissionDesc').value.trim()||name;
   const globalPts=parseInt(document.getElementById('newMissionPts').value)||3;
-  const stat=document.getElementById('newMissionStat').value||'discipline';
+  const statBoxes=document.querySelectorAll('#statCheckboxes input:checked');
+  const stats=statBoxes.length>0?Array.from(statBoxes).map(x=>x.value):['discipline'];
   if(!name){showNotif('⚠️ اكتب اسم المهمة');return;}
   const id='custom_'+Date.now();
   const color=COLORS[state.customMissions.length%COLORS.length];
-  const newM={id,name,icon,iconBg:color+'15',desc,color,hasRestDay:false,globalPts,stat,isCustom:true};
-  state.customMissions.push(newM);
-  state[id]={points:0,streak:0,lastDate:null,minutes:0,currentBook:null,completedBooks:[],postponed:false};
+  state.customMissions.push({id,name,icon,iconBg:color+'15',desc,color,hasRestDay:false,globalPts,stats,isCustom:true});
+  state[id]={points:0,streak:0,lastDate:null,minutes:0,currentBook:null,completedBooks:[],postponed:false,todayCount:0};
   saveState(state);closeAddMission();
   document.getElementById('newMissionName').value='';
   document.getElementById('newMissionIcon').value='';
   document.getElementById('newMissionDesc').value='';
   showNotif(`✅ تمت إضافة "${name}"`);render();
 }
-
-// Book Modal
 let _bookCb=null;
 function openBookModal(cb){_bookCb=cb;document.getElementById('bookModal').classList.add('open');setTimeout(()=>document.getElementById('bookTitleInput').focus(),80);}
 function closeBookModal(){document.getElementById('bookModal').classList.remove('open');}
@@ -476,64 +497,114 @@ function addPages(){
   else{saveState(state);showNotif(`+${add} صفحة ✓  (${cb.pagesRead}/${cb.pages})`);}
   render();
 }
-
-// Hunter Card Illustration
 function handleIllustrationUpload(e){
   const file=e.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=ev=>{
-    const newImg=ev.target.result;
-    if(state.hunter.illustration){
-      state.hunter.archive.unshift({img:state.hunter.illustration,date:today()});
-      if(state.hunter.archive.length>12)state.hunter.archive=state.hunter.archive.slice(0,12);
-    }
-    state.hunter.illustration=newImg;
-    saveState(state);render();
-    showNotif('🎨 تم تحديث الرسمة!',true);
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      const MAX=800;let w=img.width,h=img.height;
+      if(w>h){if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}}
+      else{if(h>MAX){w=Math.round(w*MAX/h);h=MAX;}}
+      canvas.width=w;canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      const compressed=canvas.toDataURL('image/jpeg',0.88);
+      if(state.hunter.illustration){
+        state.hunter.archive.unshift({img:state.hunter.illustration,date:today()});
+        if(state.hunter.archive.length>12)state.hunter.archive=state.hunter.archive.slice(0,12);
+      }
+      state.hunter.illustration=compressed;
+      saveState(state);render();showNotif('🎨 تم تحديث الرسمة!',true);
+    };
+    img.src=ev.target.result;
   };
   reader.readAsDataURL(file);
 }
-
 function renderNutri(){
   const dtype=gymDayType();
-  if(dtype===null){return`<div class="nutri-panel unknown"><div class="nutri-title" style="color:var(--text-dim)">⏳ سجّل النادي أو الراحة أولاً</div></div>`;}
+  if(dtype===null)return`<div class="nutri-panel unknown"><div class="nutri-title" style="color:var(--text-dim)">⏳ سجّل النادي أو الراحة أولاً</div></div>`;
   const isWorkout=dtype==='workout';const clr=isWorkout?'#22c55e':'#a855f7';
   const label=isWorkout?'💪 يوم تمرين':'😴 يوم راحة';const carbs=isWorkout?350:250;const water=isWorkout?'3.5L':'2.5 - 3L';
   return`<div class="nutri-panel ${isWorkout?'workout':'rest'}"><div class="nutri-title" style="color:${clr}">${label} — الاحتياج الغذائي اليوم</div><div class="nutri-grid"><div class="nutri-item"><div class="nutri-val" style="color:#ef4444">175g</div><div class="nutri-lbl">Protein</div></div><div class="nutri-item"><div class="nutri-val" style="color:#f59e0b">${carbs}g</div><div class="nutri-lbl">Carbs</div></div><div class="nutri-item"><div class="nutri-val" style="color:#a855f7">80g</div><div class="nutri-lbl">Fat</div></div><div class="nutri-water"><div class="nutri-val">${water}</div><div class="nutri-lbl">💧 Water</div></div></div></div>`;
 }
-
+function renderCalligraphyExtra(s){
+  const mins=s.minutes||0;
+  let notebookIdx=0;let notebookMins=mins;
+  for(let i=0;i<NOTEBOOKS.length;i++){
+    if(notebookMins>=NOTEBOOKS[i].mins){notebookMins-=NOTEBOOKS[i].mins;notebookIdx=i+1;}
+    else{notebookIdx=i;break;}
+  }
+  if(notebookIdx>=NOTEBOOKS.length)notebookIdx=NOTEBOOKS.length-1;
+  const nb=NOTEBOOKS[notebookIdx];
+  const nbPct=Math.min(100,Math.round((notebookMins/nb.mins)*100));
+  const totalPct=Math.min(100,Math.round((mins/1500)*100));
+  return`<div class="notebook-panel">
+    <div class="notebook-title">📓 ${nb.name} — الهدف: ${nb.targetLevel} Level</div>
+    <div class="notebook-progress"><span>${notebookMins} / ${nb.mins} دقيقة</span><span>${nbPct}%</span></div>
+    <div class="xp-bar-bg" style="margin-bottom:8px"><div class="xp-bar-fill" style="width:${nbPct}%;background:${nb.color}"></div></div>
+    <div style="font-size:10px;color:var(--text-dim)">إجمالي: ${mins} / 1500 دقيقة (${totalPct}%)</div>
+  </div>`;
+}
 function renderReadingExtra(s,m){
   const cb=s.currentBook;let html='';
   if(cb){const pct=Math.round(((cb.pagesRead||0)/cb.pages)*100);const gc=GENRE_CLRS[cb.genre]||'#9ca3af';html+=`<div class="current-book"><div class="book-name">${cb.title}</div><div><span class="book-genre-badge" style="background:${gc}20;color:${gc}">${cb.genre}</span></div><div class="book-pages-info"><span>${cb.pagesRead||0} / ${cb.pages} صفحة</span><span>${pct}%</span></div><div class="xp-bar-bg" style="margin-bottom:8px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}88)"></div></div><div class="add-pages-row"><input class="pages-input" id="pagesReadInput" type="number" placeholder="صفحات" min="1"/><button class="add-pages-btn" onclick="addPages()">+ أضف صفحات</button><button class="set-btn" onclick="setCurrentBook()">تغيير</button></div></div>`;}
-  else{html+=`<button class="set-btn primary" onclick="setCurrentBook()">📖 أضف كتابك الحالي</button>`;}
+  else html+=`<button class="set-btn primary" onclick="setCurrentBook()">📖 أضف كتابك الحالي</button>`;
   const done=s.completedBooks||[];
-  html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;margin-bottom:5px"><div style="font-size:11px;color:var(--text-dim)">📚 الكتب المكتملة: <strong style="color:var(--gold)">${done.length}</strong></div></div>`;
+  html+=`<div style="font-size:11px;color:var(--text-dim);margin-top:10px;margin-bottom:5px">📚 الكتب المكتملة: <strong style="color:var(--gold)">${done.length}</strong></div>`;
   if(done.length>0){html+=`<div class="books-list">`;done.slice().reverse().forEach(b=>{const gc=GENRE_CLRS[b.genre]||'#9ca3af';html+=`<div class="book-item"><div class="book-item-name">${b.title}</div><span style="font-size:10px;padding:2px 8px;border-radius:9px;background:${gc}20;color:${gc}">${b.genre}</span><div style="font-size:10px;color:var(--text-dim)">${b.pages}ص</div></div>`;});html+=`</div>`;}
   return html;
 }
-
 function renderMissions(){
   const grid=document.getElementById('missions-grid');grid.innerHTML='';
   const postponedGrid=document.getElementById('postponed-grid');postponedGrid.innerHTML='';
-  const allMissions=getMissions();
-  const activeMissions=allMissions.filter(m=>!state[m.id]?.postponed);
-  const postponedMissions=allMissions.filter(m=>state[m.id]?.postponed);
-  activeMissions.forEach(m=>{
-    const s=state[m.id];const lp=getLevelProgress(s.points);const done=!canComplete(m.id);
-    const card=document.createElement('div');card.className='card';
+  const allM=getMissions();
+  const active=allM.filter(m=>!state[m.id]?.postponed);
+  const postponed=allM.filter(m=>state[m.id]?.postponed);
+  active.forEach(m=>{
+    const s=state[m.id];const pts=Math.floor(s.points);const lp=getLevelProgress(pts);
+    const done=!canComplete(m.id);const card=document.createElement('div');card.className='card';
     let extra='';
     if(m.hasBookTracker)extra=renderReadingExtra(s,m);
-    if(m.hasMinutes){const mins=s.minutes||0;const pct=Math.round(mins/m.minutesGoal*100);extra+=`<div class="stats-row" style="margin-bottom:7px"><div class="stat-item">⏱️ <span>${mins}</span> / ${m.minutesGoal} دقيقة</div><div class="stat-item">إنجاز: <span>${pct}%</span></div></div><div class="xp-bar-bg" style="margin-bottom:11px;height:5px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}aa)"></div></div>`;}
+    if(m.hasMinutes&&m.id==='calligraphy')extra+=renderCalligraphyExtra(s);
+    else if(m.hasMinutes){const mins=s.minutes||0;const pct=Math.round(mins/m.minutesGoal*100);extra+=`<div class="stats-row" style="margin-bottom:7px"><div class="stat-item">⏱️ <span>${mins}</span> / ${m.minutesGoal} دقيقة</div><div class="stat-item">إنجاز: <span>${pct}%</span></div></div><div class="xp-bar-bg" style="margin-bottom:11px;height:5px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}aa)"></div></div>`;}
     if(m.hasNutri)extra+=renderNutri();
-    card.innerHTML=`<div class="mission-header"><div class="mission-title"><div class="mission-icon" style="background:${m.iconBg}">${m.icon}</div><div><div>${m.name}</div><div style="font-size:10px;color:var(--text-dim);font-weight:400">${m.desc}</div></div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><div class="level-badge lvl-${lp.level}">Lv.${lp.level}</div><div style="font-size:10px;color:var(--cyan)">+${m.globalPts} عام</div></div></div><div class="xp-section"><div class="xp-info"><span class="xp-label">المجموع: ${s.points} نقطة</span><span class="xp-value">${lp.current}/${lp.needed} XP</span></div><div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${lp.pct}%;background:linear-gradient(90deg,${m.color},${m.color}88)"></div></div></div>${extra}<div class="stats-row" style="margin-bottom:10px"><div class="stat-item">🔥 streak: <span>${s.streak||0}</span> يوم</div>${done?`<div class="stat-item" style="color:var(--green)">✓ <span style="color:var(--green)">مكتمل اليوم</span></div>`:''}</div>${!done?`<button class="complete-btn" onclick="complete('${m.id}')">✓ أنجزت المهمة</button>`:''}${s.canUndo?`<button class="complete-btn" onclick="undoComplete('${m.id}')" style="margin-top:6px;border-color:var(--red);color:var(--red)">↩️ تراجع (10ث)</button>`:''}${m.hasRestDay&&!done&&!s.canUndo?`<button class="complete-btn rest-day" onclick="restDay('${m.id}')" style="margin-top:6px">😴 يوم راحة (+2)</button>`:''}
-    <button class="complete-btn postpone" onclick="postpone('${m.id}')" style="margin-top:6px">⏸ تأجيل</button>`;
+    const dailyInfo=m.dailyLimit?`<div class="stat-item">اليوم: <span>${s.todayCount||0}/${m.dailyLimit}</span></div>`:'';
+    const glowDone=m.dailyLimit&&(s.todayCount||0)>=m.dailyLimit;
+    // Undo banner inside card
+    const undoBanner=s.canUndo?`<div id="undo-banner-${m.id}" style="background:#ff444415;border:1px solid var(--red);border-radius:8px;padding:10px;margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px"><span style="font-size:12px;color:var(--red)">↩️ ضغطت بالغلط؟</span><button onclick="undoComplete('${m.id}')" style="padding:6px 14px;border:1px solid var(--red);border-radius:7px;background:transparent;color:var(--red);font-family:Tajawal,sans-serif;font-size:12px;font-weight:700;cursor:pointer">تراجع</button></div>`:'';
+    card.innerHTML=`
+      <div class="mission-header">
+        <div class="mission-title">
+          <div class="mission-icon" style="background:${m.iconBg}">${m.icon}</div>
+          <div><div>${m.name}</div><div style="font-size:10px;color:var(--text-dim);font-weight:400">${m.desc}</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <div class="level-badge lvl-${lp.level}">Lv.${lp.level}</div>
+          <div style="font-size:10px;color:var(--cyan)">+${m.globalPts} عام</div>
+        </div>
+      </div>
+      <div class="xp-section">
+        <div class="xp-info"><span class="xp-label">المجموع: ${s.points} نقطة</span><span class="xp-value">${lp.current}/${lp.needed} XP</span></div>
+        <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${lp.pct}%;background:linear-gradient(90deg,${m.color},${m.color}88)"></div></div>
+      </div>
+      ${extra}
+      <div class="stats-row" style="margin-bottom:10px">
+        <div class="stat-item">🔥 streak: <span>${s.streak||0}</span> يوم</div>
+        ${dailyInfo}
+        ${done&&!m.dailyLimit?`<div class="stat-item" style="color:var(--green)">✓ <span style="color:var(--green)">مكتمل اليوم</span></div>`:''}
+      </div>
+      ${!glowDone?`<button class="complete-btn" onclick="complete('${m.id}')">✓ أنجزت المهمة</button>`:''}
+      ${undoBanner}
+      ${m.hasRestDay&&!done&&!s.canUndo?`<button class="complete-btn rest-day" onclick="restDay('${m.id}')" style="margin-top:6px">😴 يوم راحة (+1)</button>`:''}
+      <button class="complete-btn postpone" onclick="postpone('${m.id}')" style="margin-top:6px">⏸ تأجيل</button>`;
     grid.appendChild(card);
   });
   const section=document.getElementById('postponed-section');
-  if(postponedMissions.length>0){
+  if(postponed.length>0){
     section.style.display='block';
-    postponedMissions.forEach(m=>{
-      const s=state[m.id];const lp=getLevelProgress(s.points);
+    postponed.forEach(m=>{
+      const s=state[m.id];const lp=getLevelProgress(Math.floor(s.points));
       const div=document.createElement('div');div.className='postponed-card';
       div.innerHTML=`<div><div class="postponed-name">${m.icon} ${m.name}</div><div class="postponed-pts">Lv.${lp.level} | ${s.points} نقطة | streak: ${s.streak||0} يوم</div></div>
       <button class="complete-btn undo-postpone" onclick="unpostpone('${m.id}')" style="width:auto;padding:7px 14px;white-space:nowrap">▶️ إرجاع</button>`;
@@ -545,12 +616,10 @@ function renderMissions(){
   const r=size*.38,cx=size/2,cy=size/2,circ=2*Math.PI*r,dash=pct/100*circ;
   return`<div class="ring-wrap"><svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#ffffff10" stroke-width="4.5"/><circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="4.5" stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${circ*.25}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/></svg><div class="ring-text"><div style="font-size:13px;font-weight:900;color:${color}">${pct}%</div></div></div>`;
 }
-
 function renderGlobalBanner(){
   const gp=getGlobalLevelProgress(state.global.points);
   document.getElementById('globalBanner').innerHTML=`<div class="global-banner-inner"><div class="global-lvl-left"><div class="global-lvl-circle"><div class="global-lvl-num">${gp.lvl}</div></div><div><div class="global-lvl-label">المستوى العام</div><div class="global-lvl-title">${gp.title}</div><div class="global-lvl-pts">${state.global.points} نقطة إجمالاً</div></div></div><div class="global-xp-section"><div class="global-xp-info"><span style="color:var(--text-dim)">Level ${gp.lvl}</span><span style="color:var(--cyan)">${gp.cur}/${gp.needed} XP</span></div><div class="global-xp-bar-bg"><div class="global-xp-bar-fill" style="width:${gp.pct}%"></div></div><div style="font-size:10px;color:var(--text-dim);margin-top:4px;text-align:left">التالي: Level ${gp.lvl+1} — ${gp.needed-gp.cur} نقطة متبقية</div></div></div>`;
 }
-
 function renderHunterCard(){
   const gp=getGlobalLevelProgress(state.global.points);
   const stats=computeStats();
@@ -561,46 +630,38 @@ function renderHunterCard(){
       <div class="stat-bar-label"><span>${STAT_ICONS[k]} ${k.toUpperCase()}</span><span style="color:${STAT_COLORS[k]};font-weight:700">${stats[k]}</span></div>
       <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${stats[k]}%;background:${STAT_COLORS[k]}"></div></div>
     </div>`).join('');
-
   const illHTML=state.hunter.illustration
-    ?`<img src="${state.hunter.illustration}" alt="illustration"/>`
-    :`<div class="hunter-illustration-placeholder">📷<br/>أضف رسمتك</div>`;
-
+    ?`<img src="${state.hunter.illustration}" alt="illustration" style="width:100%;height:auto;display:block;"/>`
+    :`<div class="hunter-illustration-placeholder">📷<br/>اضغط لإضافة رسمتك</div>`;
   card.innerHTML=`
-    <div class="hunter-card-top">
-      <div class="hunter-illustration">
-        ${illHTML}
-        <button class="upload-btn" onclick="document.getElementById('illustrationInput').click()">📷 تحديث</button>
+    <div class="hunter-info">
+      <div class="hunter-name">Saud</div>
+      <div class="hunter-rank" style="color:var(--cyan)">Level ${gp.lvl} — ${gp.title}</div>
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:12px">${state.global.points} نقطة إجمالاً</div>
+    </div>
+    <div class="hunter-illustration-wrap" onclick="document.getElementById('illustrationInput').click()">
+      ${illHTML}
+      <div class="upload-overlay">
+        <button class="upload-btn-card">📷 تحديث الرسمة</button>
       </div>
-      <div class="hunter-info">
-        <div class="hunter-name">Saud</div>
-        <div class="hunter-rank" style="color:var(--cyan)">Level ${gp.lvl} — ${gp.title}</div>
-        <div style="font-size:11px;color:var(--text-dim);margin-bottom:10px">${state.global.points} نقطة إجمالاً</div>
-        <div class="stats-grid">${statsHTML}</div>
-      </div>
-    </div>`;
-
-  // Archive
+    </div>
+    <div class="stats-grid">${statsHTML}</div>`;
   const archiveGrid=document.getElementById('archive-grid');
-  if((state.hunter.archive||[]).length===0){
+  if(!(state.hunter.archive||[]).length){
     archiveGrid.innerHTML=`<div style="color:var(--text-dim);font-size:12px;padding:10px">لا يوجد أرشيف بعد</div>`;
   }else{
     archiveGrid.innerHTML=state.hunter.archive.map(a=>`
-      <div class="archive-item">
-        <img src="${a.img}" alt="archive"/>
-        <div class="archive-date">${a.date}</div>
-      </div>`).join('');
+      <div class="archive-item"><img src="${a.img}" alt="archive"/><div class="archive-date">${a.date}</div></div>`).join('');
   }
 }
-
 function renderDashboard(){
   const grid=document.getElementById('dash-grid');grid.innerHTML='';
-  (()=>{const s=state.reading;const lp=getLevelProgress(s.points);const cb=s.currentBook;const done=s.completedBooks||[];const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">📖 القراءة</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center"><div style="font-size:32px;font-weight:900;color:var(--gold);line-height:1;margin-top:4px">${done.length}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">كتاب مكتمل</div></div></div>${cb?`<div class="dash-sub" style="margin-top:6px">الحالي: <span style="color:var(--cyan);font-size:11px">${cb.title}</span></div>`:'<div class="dash-sub" style="margin-top:6px;font-size:11px">لا يوجد كتاب حالي</div>'}<div class="stats-row" style="margin-top:8px"><div class="stat-item">🔥 streak: <span>${s.streak||0}</span> يوم</div></div>`;grid.appendChild(card);})();
-  (()=>{const s=state.gym;const lp=getLevelProgress(s.points);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">⚡ النادي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
-  (()=>{const s=state.consulting;const lp=getLevelProgress(s.points);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">💼 الاستشارات</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
-  (()=>{const s=state.health;const lp=getLevelProgress(s.points);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">💧 ماء وأكل صحي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
-  (()=>{const s=state.glowup;const lp=getLevelProgress(s.points);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">🌟 Glow up</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
-  (()=>{const s=state.calligraphy;const lp=getLevelProgress(s.points);const mins=s.minutes||0;const pct=Math.round(mins/700*100);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">✒️ الخط العربي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div>${svgRing(pct,'#f59e0b')}</div><div class="dash-sub" style="margin-top:6px">دقائق: <span>${mins} / 700</span></div><div class="xp-bar-bg" style="margin-top:7px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,#f59e0b,#f59e0b88)"></div></div><div style="font-size:10px;color:var(--text-dim);margin-top:4px">نسبة الإنجاز ${pct}%</div>`;grid.appendChild(card);})();
+  (()=>{const s=state.reading;const lp=getLevelProgress(Math.floor(s.points));const cb=s.currentBook;const done=s.completedBooks||[];const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">📖 القراءة</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center"><div style="font-size:32px;font-weight:900;color:var(--gold);line-height:1;margin-top:4px">${done.length}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">كتاب مكتمل</div></div></div>${cb?`<div class="dash-sub" style="margin-top:6px">الحالي: <span style="color:var(--cyan);font-size:11px">${cb.title}</span></div>`:'<div class="dash-sub" style="margin-top:6px;font-size:11px">لا يوجد كتاب حالي</div>'}<div class="stats-row" style="margin-top:8px"><div class="stat-item">🔥 streak: <span>${s.streak||0}</span> يوم</div></div>`;grid.appendChild(card);})();
+  (()=>{const s=state.gym;const lp=getLevelProgress(Math.floor(s.points));const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">⚡ النادي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
+  (()=>{const s=state.consulting;const lp=getLevelProgress(Math.floor(s.points));const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">💼 الاستشارات</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
+  (()=>{const s=state.health;const lp=getLevelProgress(Math.floor(s.points));const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">💧 ماء وأكل صحي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
+  (()=>{const s=state.glowup;const lp=getLevelProgress(Math.floor(s.points));const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">🌟 Glow up</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div><div style="text-align:center;margin-top:4px"><div style="font-size:30px;font-weight:900;color:var(--gold);line-height:1">${s.streak||0}</div><div style="font-size:10px;color:var(--text-dim);margin-top:2px">يوم 🔥</div></div></div><div class="dash-sub" style="margin-top:6px">streak متواصل</div>`;grid.appendChild(card);})();
+  (()=>{const s=state.calligraphy;const lp=getLevelProgress(Math.floor(s.points));const mins=s.minutes||0;const pct=Math.round(mins/1500*100);const card=document.createElement('div');card.className='dash-card';card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="dash-label">✒️ الخط العربي</div><div class="dash-stat-big glow-${lp.level}">${lp.level}</div><div style="font-size:11px;color:var(--text-dim)">${s.points} نقطة</div></div>${svgRing(pct,'#f59e0b')}</div><div class="dash-sub" style="margin-top:6px">دقائق: <span>${mins} / 1500</span></div><div class="xp-bar-bg" style="margin-top:7px"><div class="xp-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,#f59e0b,#f59e0b88)"></div></div><div style="font-size:10px;color:var(--text-dim);margin-top:4px">نسبة الإنجاز ${pct}%</div>`;grid.appendChild(card);})();
   const booksCard=document.getElementById('dash-books-card');const done=state.reading.completedBooks||[];
   if(done.length===0){booksCard.innerHTML=`<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px">📚 لم تكمل أي كتاب بعد — يلا اقرأ!</div>`;}
   else{
@@ -610,20 +671,19 @@ function renderDashboard(){
     html+=`</div>`;booksCard.innerHTML=html;
   }
 }
-
 function renderLevels(){
   const grid=document.getElementById('levels-grid');grid.innerHTML='';
   const NDD={E:100,D:100,C:100,B:100,A:200,S:'∞'};
   getMissions().forEach(m=>{
-    const s=state[m.id];const curLvl=getLevel(s.points);const card=document.createElement('div');card.className='card';
+    const s=state[m.id];const curLvl=getLevel(Math.floor(s.points));const card=document.createElement('div');card.className='card';
     card.innerHTML=`<div style="margin-bottom:10px;font-weight:700;font-size:14px">${m.icon} ${m.name}</div>`;
     const ladder=document.createElement('div');ladder.className='level-ladder';
-    LEVELS.forEach(lvl=>{const reached=s.points>=THR[lvl];const isCur=curLvl===lvl;const row=document.createElement('div');row.className='level-row'+(isCur?' current':'')+(reached&&!isCur?' completed':'');row.innerHTML=`<div class="level-name" style="color:${LVL_CLRS[lvl]}">Lv.${lvl}</div><div class="level-req">${THR[lvl]} نقطة${lvl!=='S'?` (+${NDD[lvl]})`:'+'}</div><div>${reached?(isCur?'⚡':'✓'):'○'}</div>`;ladder.appendChild(row);});
+    LEVELS.forEach(lvl=>{const reached=Math.floor(s.points)>=THR[lvl];const isCur=curLvl===lvl;const row=document.createElement('div');row.className='level-row'+(isCur?' current':'')+(reached&&!isCur?' completed':'');row.innerHTML=`<div class="level-name" style="color:${LVL_CLRS[lvl]}">Lv.${lvl}</div><div class="level-req">${THR[lvl]} نقطة${lvl!=='S'?` (+${NDD[lvl]})`:'+'}</div><div>${reached?(isCur?'⚡':'✓'):'○'}</div>`;ladder.appendChild(row);});
     card.appendChild(ladder);grid.appendChild(card);
   });
   const glCard=document.getElementById('global-levels-card');
   const gp=getGlobalLevelProgress(state.global.points);
-  let html=`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">المستوى الحالي: <span style="color:var(--cyan)">Level ${gp.lvl} — ${gp.title}</span></span><span style="font-size:12px;color:var(--text-dim)">${state.global.points} نقطة</span></div><div style="font-size:11px;color:var(--text-dim);margin-bottom:10px">جدول النقاط: GYM/استشارات +5 | ماء/أكل/Glow up +3 | قراءة/خط +1 | راحة +2</div></div>`;
+  let html=`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">المستوى الحالي: <span style="color:var(--cyan)">Level ${gp.lvl} — ${gp.title}</span></span><span style="font-size:12px;color:var(--text-dim)">${state.global.points} نقطة</span></div><div style="font-size:11px;color:var(--text-dim);margin-bottom:10px">جدول النقاط: GYM/استشارات +5 | ماء/أكل/Glow up +3 | خط +4 | قراءة +1 | راحة +2</div></div>`;
   html+=`<div class="level-ladder">`;
   for(let i=1;i<=Math.max(10,gp.lvl+3);i++){
     const needed=i*100;const reached=state.global.points>=needed;const isCur=gp.lvl===i;
@@ -638,7 +698,6 @@ function renderLevels(){
   }
   glCard.innerHTML=html;
 }
-
 function render(){renderGlobalBanner();renderMissions();renderDashboard();renderHunterCard();renderLevels();}
 function switchTab(name,btn){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
